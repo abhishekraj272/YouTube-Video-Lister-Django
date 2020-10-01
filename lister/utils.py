@@ -49,9 +49,10 @@ async def get_data_from_youtube():
 
             # Checks if data is fetched or not
             if res.status_code == 200:
-
-                obj = YTApiKey.objects.get(id=key.id)
-                obj.timesUsed = 1 + key.timesUsed
+                key.timesUsed += 1
+                key.save()
+                #obj = YTApiKey.objects.get(id=key.id)
+                #obj.timesUsed = 1 + key.timesUsed
 
                 res = res.content.decode("utf-8")
                 print('Received data from YT')
