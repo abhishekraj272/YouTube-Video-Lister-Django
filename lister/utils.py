@@ -3,7 +3,6 @@ from json import loads
 from requests import get
 from .models import YTApiKey, VideoDetails
 from datetime import datetime
-from asgiref.sync import sync_to_async
 
 
 # Function to insert data into db
