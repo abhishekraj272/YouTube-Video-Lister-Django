@@ -6,4 +6,4 @@ class VideoDetailSerializers(serializers.ModelSerializer):
 
     class Meta:
         model = VideoDetails
-        fields = ('title', 'description', 'publishedAt', 'thumbnailUrl', 'channelName')
+        fields = ('videoId', 'title', 'description', 'publishedAt', 'thumbnailUrl', 'channelName')

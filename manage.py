@@ -17,5 +17,7 @@ def main():
     execute_from_command_line(sys.argv)
 
 
+os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
+
 if __name__ == '__main__':
     main()
