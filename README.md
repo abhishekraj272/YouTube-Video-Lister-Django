@@ -1,6 +1,6 @@
 # YouTube Video Lister - Django
 
-A python app which searchs predefined query on YouTube using YT Data API and saves it in MongoDB and lists it on dashboard.
+A python app which searchs predefined query on YouTube using YT Data API and saves it in Database and lists it on dashboard.
 
 It searches asynchronously in backgroud using Python asyncio and threading library.
 
