@@ -106,15 +106,25 @@
 
           toBeInserted = data.results;
 
-          localStorage["prev"] = data.prev;
+          localStorage["prev"] = data.previous;
           localStorage["next"] = data.next;
+
+          console.log(data);
 
           if (data.next == null) {
             $("#next-btn").attr("disabled", true);
           }
-          if (data.prev == null) {
+          else {
+            $("#next-btn").attr("disabled", false);
+          }
+          if (data.previous == null) {
             $("#prev-btn").attr("disabled", true);
           }
+          else {
+            $("#prev-btn").attr("disabled", false);
+          }
+
+          
 
           toBeInserted.forEach((element) => {
 
