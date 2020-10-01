@@ -25,6 +25,6 @@ class VideoDetailsAPI(generics.ListAPIView):
     pagination_class = StandardResultsSetPagination
 
 # Puts the get_data_from_youtube fucntion in background
-# loop = asyncio.get_event_loop()
-# t = threading.Thread(target=loop_in_thread, args=(loop,))
-# t.start()
+loop = asyncio.get_event_loop()
+t = threading.Thread(target=loop_in_thread, args=(loop,))
+t.start()

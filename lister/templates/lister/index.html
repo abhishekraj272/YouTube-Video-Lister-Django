@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="icon"
+      href="https://cdn.jsdelivr.net/gh/abhishekraj272/witty@latest/files/img.png"
+      type="image/gif"
+      sizes="16x16"
+    />
+
+    <title>Mini YT LOL</title>
+
+    <style>
+      a {
+        color: #000000;
+        text-decoration: none;
+      }
+
+      a:hover {
+        color: #00a0c6;
+        text-decoration: none;
+        cursor: pointer;
+      }
+    </style>
+
+    <!-- Matomo -->
+    <script type="text/javascript">
+      var _paq = (window._paq = window._paq || []);
+      /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+      _paq.push(["trackPageView"]);
+      _paq.push(["enableLinkTracking"]);
+      (function () {
+        var u = "https://miniytlol.matomo.cloud/";
+        _paq.push(["setTrackerUrl", u + "matomo.php"]);
+        _paq.push(["setSiteId", "1"]);
+        var d = document,
+          g = d.createElement("script"),
+          s = d.getElementsByTagName("script")[0];
+        g.type = "text/javascript";
+        g.async = true;
+        g.src = "//cdn.matomo.cloud/miniytlol.matomo.cloud/matomo.js";
+        s.parentNode.insertBefore(g, s);
+      })();
+    </script>
+    <!-- End Matomo Code -->
+  </head>
+
+  <body>
+    <!-- Image and text -->
+    <nav class="navbar navbar-light bg-light">
+      <a class="navbar-brand" href="#">
+        <img
+          src="https://cdn.jsdelivr.net/gh/abhishekraj272/witty@latest/files/img.png"
+          width="30"
+          height="30"
+          class="d-inline-block align-top"
+          alt=""
+          loading="lazy"
+        />
+        Mini YT LOL
+      </a>
+      <form class="form-inline">
+        <button id="prev-btn" type="button" class="btn btn-primary btn-sm">
+          Prev
+        </button>
+        <button id="next-btn" type="button" class="btn btn-primary btn-sm">
+          Next
+        </button>
+      </form>
+    </nav>
+
+    <div class="container pb-5">
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div id="card-inserted-here" class="col-sm-6">
+          <!-- Cards are inserted here -->
+        </div>
+        <div class="col-sm-2"></div>
+      </div>
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.min.js"
+      integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      function update_card(url) {
+          $( '.delete-this' ).remove()
+        $.get(url, function (data) {
+
+          toBeInserted = data.results;
+
+          localStorage["prev"] = data.prev;
+          localStorage["next"] = data.next;
+
+          if (data.next == null) {
+            $("#next-btn").attr("disabled", true);
+          }
+          if (data.prev == null) {
+            $("#prev-btn").attr("disabled", true);
+          }
+
+          toBeInserted.forEach((element) => {
+
+            $("#card-inserted-here").append(`
+            <div class="card mt-5 delete-this">
+                <a href="https://www.youtube.com/watch?v=${element.videoId}">
+                    <img src="${element.thumbnailUrl}" class="card-img-top" />
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">${element.title}</h5>
+                    <p class="card-text">${element.description}</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">${element.publishedAt}</small>
+                    <small class="text-muted float-right">${element.channelName}</small>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            `);
+          });
+        });
+      }
+
+      update_card(location.origin + "/api/v1/video/data");
+
+      $("#prev-btn").click(function () {
+        if (localStorage["prev"] != null) {
+          update_card(localStorage["prev"]);
+        }
+      });
+      $("#next-btn").click(function () {
+        if (localStorage["next"] != null) {
+          update_card(localStorage["next"]);
+        }
+      });
+
+
+    </script>
+  </body>
+</html>
