@@ -39,8 +39,8 @@ async def get_data_from_youtube():
     """
 
     while True:
-            key = YTApiKey.objects.filter().order_by('timesUsed').first()
-            query = f"https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&order=date&q=cricket&key={key.apiKey}"
+            apikey = YTApiKey.objects.filter().order_by('timesUsed').first()
+            query = f"https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&order=date&q=cricket&key={apikey.apiKey}"
             print(query)
             try:
                 res = get(query)
@@ -50,8 +50,9 @@ async def get_data_from_youtube():
             # Checks if data is fetched or not
             if res.status_code == 200:
 
-                obj = YTApiKey.objects.get(id=key.id)
+                obj = YTApiKey.objects.get(id=apikey.id)
                 obj.timesUsed = 1 + key.timesUsed
+                obj.save()
 
                 res = res.content.decode("utf-8")
                 print('Received data from YT')
